@@ -1,5 +1,5 @@
 module.exports = {
-  title: "帝可得",
+  title: "帝可得后台",
 
   /**
    * @type {boolean} true | false

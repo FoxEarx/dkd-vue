@@ -25,7 +25,7 @@
           <el-form-item>
             <el-input
               class="yzm"
-              prefix-icon="el-icon-mobile-phone"
+              prefix-icon="iconfont icon-anquan"
               placeholder="请输入验证码"
               v-model="yzm"
             >
@@ -94,6 +94,7 @@ export default {
       }
       /deep/ .el-form-item__content {
         display: flex;
+        caret-color: #999999;
       }
       .yzm {
         flex: 2;
