@@ -5,35 +5,41 @@
         <img src="../../assets/login_img/logo.595745bd.png" alt="" />
       </div>
       <div class="login_form">
-        <el-form>
-          <el-form-item>
+        <el-form :model="loginForm" :rules="loginFormRules" ref="loginForm">
+          <el-form-item prop="loginAccount">
             <el-input
-              v-model="zh"
+              v-model="loginForm.loginAccount"
               prefix-icon="el-icon-mobile-phone"
               placeholder="请输入账号"
             >
             </el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="loginpassword">
             <el-input
               prefix-icon="el-icon-lock"
               show-password
               placeholder="请输入密码"
-              v-model="mm"
+              v-model="loginForm.loginpassword"
             ></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="loginValidation">
             <el-input
               class="yzm"
               prefix-icon="iconfont icon-anquan"
               placeholder="请输入验证码"
-              v-model="yzm"
+              v-model="loginForm.loginValidation"
             >
             </el-input>
-            <span class="yzmwz"></span>
+            <img :src="imgURL" alt="" class="yzmwz" @click="loginValidation" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary">登录</el-button>
+            <el-button
+              type="primary"
+              @click="login"
+              :plain="true"
+              :loading="loading"
+              >登录</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
@@ -42,27 +48,73 @@
 </template>
 
 <script>
+import { loginValidation } from '@/api/user.js'
+
 export default {
   data() {
     return {
-      zh: "",
-      mm: "",
-      yzm: "",
-    };
+      loginForm: {
+        loginAccount: '',
+        loginpassword: '',
+        loginValidation: '',
+        clientToken: '',
+      },
+      loginFormRules: {
+        loginAccount: [
+          { required: true, message: '请输入账号', trigger: 'blur' },
+        ],
+        loginpassword: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+        ],
+        loginValidation: [
+          { required: true, message: '请输入验证码', trigger: 'blur' },
+        ],
+      },
+      imgURL: '',
+      loading: false,
+    }
   },
 
-  created() {},
+  created() {
+    this.loginValidation()
+  },
 
-  methods: {},
-};
+  methods: {
+    async login() {
+      this.loading = true
+      try {
+        await this.$refs.loginForm.validate()
+        await this.$store.dispatch('user/getToken', this.loginForm)
+        if (this.$store.state.user.msg === '登录成功') {
+          this.$message({
+            message: this.$store.state.user.msg,
+            type: 'success',
+          })
+          this.$router.push('/')
+        } else {
+          this.$message.error(this.$store.state.user.msg)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      this.loading = false
+    },
+    async loginValidation() {
+      this.loginForm.clientToken = Math.round(Math.random() * 9000 + 1000)
+      const res = await loginValidation(this.loginForm.clientToken)
+      console.log(res)
+      this.imgURL = res.request.responseURL
+    },
+  },
+}
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .login_box {
   position: relative;
   width: 100%;
   height: 100%;
-  background: url("../../assets/login_img/background.be4fae7d.png") no-repeat;
+  background: url('../../assets/login_img/background.be4fae7d.png') no-repeat;
   background-size: cover;
   .login_main {
     position: absolute;
@@ -89,10 +141,10 @@ export default {
     .login_form {
       width: 448px;
       height: 280px;
-      /deep/ .el-input__inner {
+      ::v-deep .el-input__inner {
         height: 52px;
       }
-      /deep/ .el-form-item__content {
+      ::v-deep .el-form-item__content {
         display: flex;
         caret-color: #999999;
       }
@@ -100,12 +152,16 @@ export default {
         flex: 2;
       }
       .yzmwz {
+        height: 52px;
         flex: 1;
         border: 1px solid #85a06a;
       }
-      /deep/ .el-input__icon {
+      ::v-deep .el-input__prefix {
         font-size: 20px;
-        margin-top: 2px;
+        margin-top: 3px;
+      }
+      ::v-deep .el-input__icon {
+        font-size: 20px;
       }
       .el-button--primary {
         background-color: #6578ed;
@@ -113,6 +169,7 @@ export default {
         height: 52px;
         border-color: #6578ed;
         font-size: 14px;
+        color: #fff;
       }
     }
   }
