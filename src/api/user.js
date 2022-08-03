@@ -21,5 +21,6 @@ export function login(data) {
 export function loginValidation(Validation) {
   return request({
     url: `/user-service/user/imageCode/${Validation}`,
+    responseType: 'arraybuffer',
   })
 }

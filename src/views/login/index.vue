@@ -85,15 +85,8 @@ export default {
       try {
         await this.$refs.loginForm.validate()
         await this.$store.dispatch('user/getToken', this.loginForm)
-        if (this.$store.state.user.msg === '登录成功') {
-          this.$message({
-            message: this.$store.state.user.msg,
-            type: 'success',
-          })
-          this.$router.push('/')
-        } else {
-          this.$message.error(this.$store.state.user.msg)
-        }
+        this.$router.push('/')
+        this.$message.success('登录成功')
       } catch (error) {
         console.log(error)
       }
@@ -101,9 +94,18 @@ export default {
     },
     async loginValidation() {
       this.loginForm.clientToken = Math.round(Math.random() * 9000 + 1000)
+      this.$store.commit('user/setclientToken', this.loginForm.clientToken)
       const res = await loginValidation(this.loginForm.clientToken)
       console.log(res)
-      this.imgURL = res.request.responseURL
+      let url =
+        'data:image/png;base64,' +
+        btoa(
+          new Uint8Array(res).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            '',
+          ),
+        )
+      this.imgURL = url
     },
   },
 }

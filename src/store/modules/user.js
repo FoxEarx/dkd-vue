@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   state: {
     token: '',
-    msg: '请求超时',
+    clientToken: '',
   },
   mutations: {
     setToken(state, payload) {
@@ -11,9 +11,6 @@ export default {
     },
     setclientToken(state, payload) {
       state.clientToken = payload
-    },
-    setMsg(state, payload) {
-      state.msg = payload
     },
   },
   actions: {
@@ -27,9 +24,10 @@ export default {
           clientToken: payload.clientToken,
         })
         console.log(res)
-        context.commit('setToken', res.data.token)
-        context.commit('setMsg', res.data.msg)
-      } catch (error) {}
+        context.commit('setToken', res.token)
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

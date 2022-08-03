@@ -1,29 +1,32 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
-    <breadcrumb class="breadcrumb-container" />
-
+    <img src="@/assets/login_img/logo.png" alt="" class="logo" />
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
+          <span class="xiaotubiao">欢迎您，</span>
+          <span>退出</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
+            <el-dropdown-item> Home </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+          <a
+            target="_blank"
+            href="https://github.com/PanJiaChen/vue-admin-template/"
+          >
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
+          <a
+            target="_blank"
+            href="https://panjiachen.github.io/vue-element-admin-site/#/"
+          >
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display: block">Log Out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -39,13 +42,10 @@ import Hamburger from '@/components/Hamburger'
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar'
-    ])
+    ...mapGetters(['sidebar', 'avatar']),
   },
   methods: {
     toggleSideBar() {
@@ -54,29 +54,45 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  height: 60px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  background: #5373e0;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+  .logo {
+    width: 88px;
+    height: 36px;
+    margin: 10px 0 0 10px;
+  }
+
+  .xiaotubiao {
+    margin: 0 30px 0 20px;
+    color: #fff;
+    font-size: 16px;
+  }
+  span {
+    color: #fff;
+    font-size: 16px;
+  }
 
   .hamburger-container {
     line-height: 46px;
     height: 100%;
     float: left;
     cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
+    transition: background 0.3s;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, .025)
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 
@@ -85,6 +101,8 @@ export default {
   }
 
   .right-menu {
+    display: flex;
+    align-items: center;
     float: right;
     height: 100%;
     line-height: 50px;
@@ -103,10 +121,10 @@ export default {
 
       &.hover-effect {
         cursor: pointer;
-        transition: background .3s;
+        transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, .025)
+          background: rgba(0, 0, 0, 0.025);
         }
       }
     }
@@ -115,7 +133,8 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        display: flex;
+        align-items: center;
         position: relative;
 
         .user-avatar {
@@ -129,8 +148,10 @@ export default {
           cursor: pointer;
           position: absolute;
           right: -20px;
-          top: 25px;
+          // top: 25px;
           font-size: 12px;
+          color: #fff;
+          font-size: 16px;
         }
       }
     }
