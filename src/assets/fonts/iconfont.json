@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "583015",
+      "name": "我的订单",
+      "font_class": "74wodedingdan",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "586811",
+      "name": "component-24",
+      "font_class": "component24",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "883901",
+      "name": "灯泡",
+      "font_class": "dengpao",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "1517680",
+      "name": "定位",
+      "font_class": "dingwei",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "1546613",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "6525385",
+      "name": "订单",
+      "font_class": "dingdan-copy",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "11810503",
+      "name": "充电桩",
+      "font_class": "chongdianzhuang",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "16206719",
+      "name": "人员管理",
+      "font_class": "renyuanguanli",
+      "unicode": "e6ad",
+      "unicode_decimal": 59053
+    },
+    {
+      "icon_id": "20693873",
+      "name": "财务-对账",
+      "font_class": "caiwu-duizhang",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
       "icon_id": "5961299",
       "name": "安全",
       "font_class": "anquan",

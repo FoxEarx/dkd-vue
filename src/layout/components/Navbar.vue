@@ -2,34 +2,22 @@
   <div class="navbar">
     <img src="@/assets/login_img/logo.png" alt="" class="logo" />
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
+      <div class="avatar-container">
         <div class="avatar-wrapper">
-          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
-          <span class="xiaotubiao">欢迎您，</span>
-          <span>退出</span>
-          <i class="el-icon-caret-bottom" />
+          <img
+            :src="$store.state.user.userInfo.image"
+            class="user-avatar"
+            v-imgError="defaultImg"
+          />
+          <span class="xiaotubiao"
+            >欢迎您，{{ $store.state.user.userInfo.userName }}</span
+          >
+          <div class="logout" @click="logout">
+            <span>退出</span>
+            <i class="el-icon-caret-bottom" />
+          </div>
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item> Home </el-dropdown-item>
-          </router-link>
-          <a
-            target="_blank"
-            href="https://github.com/PanJiaChen/vue-admin-template/"
-          >
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a
-            target="_blank"
-            href="https://panjiachen.github.io/vue-element-admin-site/#/"
-          >
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +28,12 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
 export default {
+  data() {
+    return {
+      defaultImg:
+        'https://img2.baidu.com/it/u=1940507931,330831891&fm=253&fmt=auto&app=138&f=JPEG?w=640&h=360',
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger,
@@ -67,6 +61,11 @@ export default {
   background: #5373e0;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
+  .logout {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
   .logo {
     width: 88px;
     height: 36px;
@@ -123,9 +122,9 @@ export default {
         cursor: pointer;
         transition: background 0.3s;
 
-        &:hover {
-          background: rgba(0, 0, 0, 0.025);
-        }
+        // &:hover {
+        //   // background: rgba(0, 0, 0, 0.025);
+        // }
       }
     }
 

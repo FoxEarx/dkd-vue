@@ -24,3 +24,14 @@ export function loginValidation(Validation) {
     responseType: 'arraybuffer',
   })
 }
+
+/**
+ *  获取用户基本信息
+ * @param {Number} id
+ * @returns promise
+ */
+export function userInfo(id) {
+  return request({
+    url: `/user-service/user/${id}`,
+  })
+}
