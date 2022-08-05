@@ -7,6 +7,9 @@ router.beforeEach((to, from, next) => {
       store.dispatch('user/getUserInfo')
     }
 
+    if (!store.state.repair.AllList) {
+      store.dispatch('repair/getAllList')
+    }
     if (to.path === '/login') {
       next('/')
     } else {
