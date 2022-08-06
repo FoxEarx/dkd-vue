@@ -10,14 +10,6 @@ import createVuexPersisted from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  // state: {
-  //   pageIndex: 1,
-  // },
-  // mutations: {
-  //   changePageIndex(state) {
-  //     state.pageIndex = state.pageIndex + 1
-  //   },
-  // },
   modules: {
     app,
     settings,

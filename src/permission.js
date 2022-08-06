@@ -1,14 +1,14 @@
 import router from '@/router'
 import store from '@/store'
 const whitesList = ['/login', '/404']
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (store.state.user.token) {
     if (!store.state.user.userInfo.userId) {
-      store.dispatch('user/getUserInfo')
+      await store.dispatch('user/getUserInfo')
     }
 
     if (!store.state.repair.AllList) {
-      store.dispatch('repair/getAllList')
+      await store.dispatch('repair/getAllList')
     }
 
     if (to.path === '/login') {

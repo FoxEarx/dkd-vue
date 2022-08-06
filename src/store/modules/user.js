@@ -38,7 +38,6 @@ export default {
     },
     logout(context) {
       context.commit('setToken', '')
-      context.commit('setclientToken', '')
       context.commit('setUserInfo', {})
       context.commit('setUserId', '')
     },

@@ -54,8 +54,8 @@ export default {
   data() {
     return {
       loginForm: {
-        loginAccount: '',
-        loginpassword: '',
+        loginAccount: 'admin',
+        loginpassword: 'admin',
         loginValidation: '',
         clientToken: '',
       },
@@ -94,15 +94,17 @@ export default {
     },
     async loginValidation() {
       this.loginForm.clientToken = Math.round(Math.random() * 9000 + 1000)
-      this.$store.commit('user/setclientToken', this.loginForm.clientToken)
+      await this.$store.commit(
+        'user/setclientToken',
+        this.loginForm.clientToken,
+      )
       const res = await loginValidation(this.loginForm.clientToken)
       let url =
         'data:image/png;base64,' +
         btoa(
-          new Uint8Array(res).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            '',
-          ),
+          new Uint8Array(res).reduce((data, byte) => {
+            return data + String.fromCharCode(byte)
+          }, ''),
         )
       this.imgURL = url
     },

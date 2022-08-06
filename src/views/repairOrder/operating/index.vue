@@ -43,10 +43,20 @@
           </span>
         </el-dialog>
       </div>
-      <List :tableData="tableData" :table="table"></List>
+      <List :tableData="tableData" :table="table">
+        <template #operation>
+          <span class="details">查看详情</span>
+        </template>
+      </List>
       <!-- 分页 -->
       <div class="block">
-        <el-pagination :page-size="100" :total="1000"> </el-pagination>
+        <el-pagination
+          :page-size="100"
+          :total="+$store.state.repair.AllList.totalCount"
+          @next-click="nextClick"
+          @prev-click="prevClick"
+        >
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -61,6 +71,7 @@ export default {
     return {
       dialogVisible: false,
       tableData: [],
+      index: 1,
       table: [
         { prop: 'taskCode', label: '工单编号' },
         { prop: 'innerCode', label: '设备编号' },
@@ -69,7 +80,6 @@ export default {
         { prop: 'taskStatusTypeEntity', label: '工单状态' },
         { prop: 'userName', label: '运营人员' },
         { prop: 'createTime', label: '创建日期' },
-        { prop: 'operation', label: '操作' },
       ],
     }
   },
@@ -104,6 +114,16 @@ export default {
       })
       this.tableData = list
       console.log(this.tableData)
+    },
+    async nextClick() {
+      this.index++
+      await this.$store.dispatch('repair/getAllList', this.index)
+      this.getList()
+    },
+    async prevClick() {
+      this.index--
+      await this.$store.dispatch('repair/getAllList', this.index)
+      this.getList()
     },
   },
   components: {
@@ -162,5 +182,9 @@ export default {
     border: none;
     color: #655b56 !important;
   }
+}
+.details {
+  color: #8384ff;
+  cursor: pointer;
 }
 </style>
