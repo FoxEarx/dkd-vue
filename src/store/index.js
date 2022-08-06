@@ -10,6 +10,14 @@ import createVuexPersisted from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  // state: {
+  //   pageIndex: 1,
+  // },
+  // mutations: {
+  //   changePageIndex(state) {
+  //     state.pageIndex = state.pageIndex + 1
+  //   },
+  // },
   modules: {
     app,
     settings,
@@ -22,6 +30,7 @@ const store = new Vuex.Store({
       reducer(state) {
         return {
           user: { token: state.user.token, userId: state.user.userId },
+          repair,
         }
       },
     }),

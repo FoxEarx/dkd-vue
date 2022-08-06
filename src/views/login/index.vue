@@ -96,7 +96,6 @@ export default {
       this.loginForm.clientToken = Math.round(Math.random() * 9000 + 1000)
       this.$store.commit('user/setclientToken', this.loginForm.clientToken)
       const res = await loginValidation(this.loginForm.clientToken)
-      console.log(res)
       let url =
         'data:image/png;base64,' +
         btoa(

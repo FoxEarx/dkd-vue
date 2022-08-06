@@ -10,6 +10,7 @@ router.beforeEach((to, from, next) => {
     if (!store.state.repair.AllList) {
       store.dispatch('repair/getAllList')
     }
+
     if (to.path === '/login') {
       next('/')
     } else {

@@ -7,8 +7,8 @@ import { getTokenTime } from '@/utils/auth.js'
 
 const isTimeOut = function () {
   const currentTime = Date.now()
-  const tokenTime = getTokenTime()
-  const timeout = 60 * 1000 * 60
+  const tokenTime = getTokenTime() || 0
+  const timeout = 60 * 10000 * 10
   return currentTime - tokenTime > timeout
 }
 
@@ -48,6 +48,7 @@ service.interceptors.response.use(
       Message.error('登录过期')
       await store.dispatch('user/logout')
       router.push('/login')
+      // store.dispatch('user/
     } else {
       Message.error(error.message)
     }

@@ -10,10 +10,9 @@ export default {
     },
   },
   actions: {
-    async getAllList(context) {
-      const res = await repairSearch()
-      context.commit('setRepair', res)
-      console.log(res)
+    async getAllList(context, id) {
+      const res = await repairSearch(id)
+      context.commit('setRepair', res.data)
     },
   },
 }
